@@ -1,42 +1,28 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/authcontext';
 import { ThemeContext } from '../contexts/themeContext';
 
-class Navbar2 extends Component {
+const Navbar2 = () => {
 
-    render() {
+    const {isAuthenticated, auth} = useContext(AuthContext);
+    const {isLight, light, dark} = useContext(ThemeContext);
+    const theme = isLight ? light : dark;
 
-        return (
-            <AuthContext.Consumer>{(authContext) => (
-                <ThemeContext.Consumer>{(themeContext) => {
-                    console.log(authContext);
-                    const { isAuthenticated, auth } = authContext;
-                    const { isLight, light, dark } = themeContext;
-                    const theme = isLight ? light : dark;
-                    return (
-                        <nav style={{ background: theme.ui, color: theme.syntax }}>
-                            <h1>Context App</h1>
-                            <div onClick={auth}>
-                                {
-                                    isAuthenticated ? 'Logged in' : 'Logged out'
-                                }
-                            </div>
-                            <ul>
-                                <li>Home</li>
-                                <li>About</li>
-                                <li>Contact</li>
-                            </ul>
-                        </nav>
-                    )
+    return (
+        <nav style={{ background: theme.ui, color: theme.syntax }}>
+            <h1>Context App</h1>
+            <div onClick={auth}>
+                {
+                    isAuthenticated ? 'Logged in' : 'Logged out'
                 }
-                }
-
-                </ThemeContext.Consumer>
-            )}
-
-            </AuthContext.Consumer>
-        );
-    }
-};
+            </div>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    );
+}
 
 export default Navbar2;
